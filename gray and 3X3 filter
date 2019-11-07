@@ -1,0 +1,27 @@
+import cv2
+import numpy as np
+from PIL import Image
+from scipy import ndimage
+
+filename='School.jpg'
+img1=cv2.imread(filename)
+gray=cv2.cvtColor(img1,cv2.COLOR_BGR2GRAY) #灰色
+cv2.imwrite('gray.jpg',gray) 
+
+kernel_3x3 = np.array([
+[1,2,1],
+[2,4,2],
+[1,2,1]
+])
+
+
+kernel_3x3 = kernel_3x3/kernel_3x3.sum() #加权平均
+
+img = cv2.imread("School.jpg",0)
+
+k3 = ndimage.convolve(img,kernel_3x3)
+
+
+cv2.imshow("3x3",k3)
+cv2.imwrite('k3.jpg',k3)
+cv2.waitKey()
